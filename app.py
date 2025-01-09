@@ -28,16 +28,16 @@ from langchain.embeddings import OpenAIEmbeddings
 from dotenv import load_dotenv
 load_dotenv()
 
-# api_key = os.getenv("GROQ_API_KEY")
-# ASTRA_DB_APPLICATION_TOKEN=os.getenv("ASTRA_DB_APPLICATION_TOKEN")
-# ASTRA_DB_ID=os.getenv("ASTRA_DB_ID")
-# OPENAI_API_KEY=os.getenv("OPENAI_API_KEY")
-# os.environ['HF_TOKEN']=os.getenv("HF_TOKEN")
-api_key = st.secrets["GROQ_API_KEY"]
-ASTRA_DB_APPLICATION_TOKEN=st.secrets["ASTRA_DB_APPLICATION_TOKEN"]
-ASTRA_DB_ID=st.secrets["ASTRA_DB_ID"]
-OPENAI_API_KEY=st.secrets["OPENAI_API_KEY"]
-os.environ['HF_TOKEN']=st.secrets["HF_TOKEN"]
+api_key = os.getenv("GROQ_API_KEY")
+ASTRA_DB_APPLICATION_TOKEN=os.getenv("ASTRA_DB_APPLICATION_TOKEN")
+ASTRA_DB_ID=os.getenv("ASTRA_DB_ID")
+OPENAI_API_KEY=os.getenv("OPENAI_API_KEY")
+os.environ['HF_TOKEN']=os.getenv("HF_TOKEN")
+# api_key = st.secrets["GROQ_API_KEY"]
+# ASTRA_DB_APPLICATION_TOKEN=st.secrets["ASTRA_DB_APPLICATION_TOKEN"]
+# ASTRA_DB_ID=st.secrets["ASTRA_DB_ID"]
+# OPENAI_API_KEY=st.secrets["OPENAI_API_KEY"]
+# os.environ['HF_TOKEN']=st.secrets["HF_TOKEN"]
 
 embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
 cassio.init(token=ASTRA_DB_APPLICATION_TOKEN, database_id=ASTRA_DB_ID)
