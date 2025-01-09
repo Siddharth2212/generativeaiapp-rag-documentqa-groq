@@ -146,7 +146,7 @@ if api_key:
             )
             st.write(st.session_state.store)
             st.write("Assistant:", response['answer'])
-            st.write("Chat History:", session_history.messages)
+            # st.write("Chat History:", session_history.messages)
 else:
     st.warning("Please enter the GRoq API Key")
 
