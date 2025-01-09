@@ -35,6 +35,11 @@ st.markdown("""
     <meta property="og:description" content="Chat with PDF content using advanced AI retrieval and question answering." />
     <meta property="og:type" content="website" />
 """, unsafe_allow_html=True)
+
+st.set_page_config(
+        page_title='Conversational RAG with PDF Uploads and Chat History',
+        page_icon="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhT3rTy1jN3s3Y2HXjqZl0gnbVGwC6Eoitpw&s"                  
+        )
 # api_key = os.getenv("GROQ_API_KEY")
 # ASTRA_DB_APPLICATION_TOKEN=os.getenv("ASTRA_DB_APPLICATION_TOKEN")
 # ASTRA_DB_ID=os.getenv("ASTRA_DB_ID")
