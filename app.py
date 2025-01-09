@@ -28,6 +28,13 @@ from langchain.embeddings import OpenAIEmbeddings
 from dotenv import load_dotenv
 load_dotenv()
 
+# OG Title and Image meta tags for the app
+st.markdown("""
+    <meta property="og:title" content="Conversational RAG with PDF Uploads and Chat History" />
+    <meta property="og:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhT3rTy1jN3s3Y2HXjqZl0gnbVGwC6Eoitpw&s" />
+    <meta property="og:description" content="Chat with PDF content using advanced AI retrieval and question answering." />
+    <meta property="og:type" content="website" />
+""", unsafe_allow_html=True)
 # api_key = os.getenv("GROQ_API_KEY")
 # ASTRA_DB_APPLICATION_TOKEN=os.getenv("ASTRA_DB_APPLICATION_TOKEN")
 # ASTRA_DB_ID=os.getenv("ASTRA_DB_ID")
