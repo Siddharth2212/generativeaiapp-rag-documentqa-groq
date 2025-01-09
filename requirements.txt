@@ -6,6 +6,7 @@ langchain-community
 pypdf
 bs4
 arxiv
+cassio
 langserve
 pymupdf
 wikipedia

@@ -12,19 +12,37 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import PyPDFLoader
 import os
+import cassio
 import uuid  # Import uuid
-
+from langchain.vectorstores.cassandra import Cassandra
+from langchain.indexes.vectorstore import VectorStoreIndexWrapper
 # Generate a random session ID
 session_id = str(uuid.uuid4())  # Generate a unique session ID using uuid
+# LangChain components to use
+from langchain.llms import OpenAI
+from langchain.embeddings import OpenAIEmbeddings
+
+
+# With CassIO, the engine powering the Astra DB integration in LangChain,
+# you will also initialize the DB connection:
 
 from dotenv import load_dotenv
 load_dotenv()
+
 api_key = os.getenv("GROQ_API_KEY")
-
+ASTRA_DB_APPLICATION_TOKEN=os.getenv("ASTRA_DB_APPLICATION_TOKEN")
+ASTRA_DB_ID=os.getenv("ASTRA_DB_ID")
+OPENAI_API_KEY=os.getenv("OPENAI_API_KEY")
 os.environ['HF_TOKEN']=os.getenv("HF_TOKEN")
-embeddings=HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
-
+embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
+cassio.init(token=ASTRA_DB_APPLICATION_TOKEN, database_id=ASTRA_DB_ID)
+astra_vector_store = Cassandra(
+    embedding=embeddings,
+    table_name="qa_mini_demo",
+    session=None,
+    keyspace=None,
+)
 ## set up Streamlit 
 st.title("Conversational RAG With PDF uploads and chat history")
 st.write("Upload Pdf's and chat with their content")
@@ -57,8 +75,9 @@ if api_key:
     # Split and create embeddings for the documents
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=500)
         splits = text_splitter.split_documents(documents)
-        vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings)
-        retriever = vectorstore.as_retriever()    
+        astra_vector_store.add_documents(documents=splits)
+
+        retriever = astra_vector_store.as_retriever()
 
         contextualize_q_system_prompt=(
             "Given a chat history and the latest user question"
